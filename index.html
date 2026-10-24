@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101827" />
+  <title>Óptica — Probador virtual</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#"><span class="brand-mark">O</span><span><strong>ÓPTICA</strong><small>PROBADOR VIRTUAL</small></span></a>
+      <nav><button class="nav-btn active" id="tryOnTab">Probar lentes</button><button class="nav-btn" id="adminTab">Administración</button></nav>
+    </header>
+
+    <main id="tryOnPage">
+      <section class="intro">
+        <div><p class="eyebrow">TU PRÓXIMO ESTILO</p><h1>Encuentra los lentes<br><em>que van contigo.</em></h1><p class="intro-copy">Pruébate diferentes monturas en tiempo real. Cambia el estilo y el color antes de elegir.</p></div>
+        <div class="privacy-note"><span>●</span> La cámara solo se activa cuando tú lo decides.</div>
+      </section>
+
+      <section class="try-layout">
+        <div class="camera-card">
+          <div class="camera-stage" id="cameraStage">
+            <video id="video" autoplay playsinline muted></video>
+            <div id="threeHost"></div>
+            <div class="camera-placeholder" id="cameraPlaceholder">
+              <div class="camera-icon">◎</div>
+              <h2>Tu probador te espera</h2>
+              <p>Coloca tu rostro frente a la cámara y prueba tu próximo par favorito.</p>
+              <button class="primary-btn" id="startCamera">Activar cámara</button>
+              <small>Debes permitir el acceso a la cámara en tu navegador.</small>
+            </div>
+            <div class="camera-status" id="cameraStatus">Cámara apagada</div>
+            <button class="flip-btn" id="flipCamera" title="Cambiar cámara" aria-label="Cambiar cámara">↻</button>
+          </div>
+          <div class="camera-footer"><span id="trackingStatus">Activa la cámara para comenzar</span><button class="text-btn" id="stopCamera">Apagar cámara</button></div>
+        </div>
+
+        <aside class="catalog-panel">
+          <div class="panel-heading"><div><p class="eyebrow">COLECCIÓN</p><h2>Elige tu montura</h2></div><span class="count" id="frameCount">0 estilos</span></div>
+          <div class="filters" id="filters">
+            <button class="filter-chip selected" data-filter="Todos">Todos</button>
+            <button class="filter-chip" data-filter="Clásicos">Clásicos</button>
+            <button class="filter-chip" data-filter="Modernos">Modernos</button>
+            <button class="filter-chip" data-filter="Elegantes">Elegantes</button>
+          </div>
+          <div class="frame-grid" id="frameGrid"></div>
+          <div class="selected-product" id="selectedProduct"></div>
+          <div class="color-section"><div class="color-heading"><strong>Color de la montura</strong><span id="colorName">Negro</span></div><div class="swatches" id="swatches"></div></div>
+          <button class="primary-btn full-btn" id="favoriteBtn">♡ Guardar en favoritos</button>
+          <p class="fine-print">La visualización es orientativa. La talla y adaptación final deben comprobarse en la óptica.</p>
+        </aside>
+      </section>
+    </main>
+
+    <main id="adminPage" hidden>
+      <section class="admin-intro"><p class="eyebrow">GESTIÓN DE LA ÓPTICA</p><h1>Catálogo de monturas</h1><p>Agrega estilos, precios, colores y la dirección de tus modelos 3D.</p></section>
+      <div class="admin-warning"><strong>Modo de demostración:</strong> los cambios se guardan en este navegador. Para usarlo comercialmente en varios dispositivos, conecta una base de datos y un inicio de sesión seguro.</div>
+      <section class="admin-layout">
+        <form id="frameForm" class="admin-form">
+          <h2 id="formTitle">Agregar montura</h2>
+          <input type="hidden" id="frameId" />
+          <label>Nombre del modelo<input id="frameName" required maxlength="80" placeholder="Ej. Milano Classic" /></label>
+          <div class="form-row"><label>Precio (USD)<input id="framePrice" type="number" min="0" step="0.01" required placeholder="49.99" /></label><label>Categoría<select id="frameCategory"><option>Clásicos</option><option>Modernos</option><option>Elegantes</option></select></label></div>
+          <label>Colores disponibles <small>Separados por coma</small><input id="frameColors" required placeholder="Negro, Dorado, Transparente" /></label>
+          <label>URL del modelo 3D .glb (opcional)<input id="frameModel" type="url" placeholder="https://tu-sitio.com/modelo.glb" /></label>
+          <label>URL de imagen de producto (opcional)<input id="frameImage" type="url" placeholder="https://tu-sitio.com/montura.jpg" /></label>
+          <p class="form-help">Si no agregas un modelo .glb, se mostrará una montura 3D básica generada por el sistema. Los modelos externos deben tener licencia de uso y estar alojados en un servidor compatible con CORS.</p>
+          <div class="form-actions"><button class="primary-btn" type="submit" id="saveFrame">Guardar montura</button><button class="secondary-btn" type="button" id="cancelEdit">Limpiar</button></div>
+        </form>
+        <div class="admin-list-card"><div class="list-head"><h2>Monturas registradas</h2><span id="adminCount">0</span></div><div id="adminList" class="admin-list"></div></div>
+      </section>
+    </main>
+    <footer><span>ÓPTICA · Probador virtual</span><span>Diseñado para móvil y computadora</span></footer>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
